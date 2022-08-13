@@ -1,5 +1,5 @@
-import { FormControl, Input } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
+import { FormControl, Input } from "@chakra-ui/react"
 
 const FilterProducts = ({ setFilters, setPage }) => {
   const [titleValues, setTitleValues] = useState("")

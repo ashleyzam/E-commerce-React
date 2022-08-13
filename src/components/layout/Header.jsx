@@ -1,8 +1,17 @@
-import { Link, Flex, Box, Image } from "@chakra-ui/react"
 import { NavLink } from "react-router-dom"
+import { Link, Flex, Box, Image } from "@chakra-ui/react"
 import { ModalHandle } from "../../pages/auth/Modal"
+import { useAuth } from "../../services/ZustandHook/useAuth"
+// import { useZustand } from "../../services/ZustandHook/zustand"
 
 export const Header = () => {
+  const {
+    auth: { user },
+    logout,
+  } = useAuth()
+  const logOut = () => {
+    logout()
+  }
   return (
     <Box>
       <Flex
@@ -34,7 +43,18 @@ export const Header = () => {
           <Link as={NavLink} to="/hola">
             Cart
           </Link>
-          <ModalHandle />
+          <Link as={NavLink} to="/profile">
+            Profile
+          </Link>
+          {user ? (
+            <Link to="/profile" bg="none" onClick={logOut}>
+              Log Out
+            </Link>
+          ) : (
+            <Link to="/">
+              <ModalHandle />
+            </Link>
+          )}
         </Flex>
       </Flex>
     </Box>

@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom"
 import { useState, useEffect } from "react"
-import { Box, Button, Flex, Heading, Image, Text } from "@chakra-ui/react"
+import { Button, Flex, Heading, Image, Text, Spinner } from "@chakra-ui/react"
 
 const ProductsDetails = () => {
   const [details, setDetail] = useState()
@@ -9,9 +9,7 @@ const ProductsDetails = () => {
 
   useEffect(() => {
     setIsLoading(true)
-    fetch(
-      `https://strapiecommerce-production-f2a0.up.railway.app/api/products/${id}?populate=image`
-    )
+    fetch(`http://localhost:1337/api/products/${id}?populate=image`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data)
@@ -22,11 +20,7 @@ const ProductsDetails = () => {
   // console.log(details)
   return (
     <>
-      {isLoading && (
-        <Box>
-          <Heading fontSize={35}>Cargando...</Heading>
-        </Box>
-      )}
+      {isLoading && <Spinner />}
       {details && (
         <Flex
           maxWidth="450"
