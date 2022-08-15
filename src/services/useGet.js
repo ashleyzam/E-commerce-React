@@ -9,7 +9,7 @@ const useGet = () => {
     const getData = async (url) => {
       setIsLoading(true)
       const res = await fetch(
-        `http://localhost:1337/api/products?populate=image&pagination[start]=${page}&pagination[limit]=6${filters}`
+        `http://localhost:1337/api/products?populate=image&pagination[start]=${page}&pagination[limit]=3${filters}`
       )
       setIsLoading(false)
       const data = await res.json()

@@ -1,16 +1,26 @@
 import { NavLink } from "react-router-dom"
 import { Link, Flex, Box, Image } from "@chakra-ui/react"
-import { ModalHandle } from "../../pages/auth/Modal"
-import { useAuth } from "../../services/ZustandHook/useAuth"
-// import { useZustand } from "../../services/ZustandHook/zustand"
+import { Modalwindow } from "../../pages/auth/Modal"
+import { useDispatch } from "react-redux"
+import { useSelector } from "react-redux/es/exports"
+import { logout } from "../../services/Redux/Slices/auth"
+import { FaShoppingBag } from "react-icons/fa"
 
 export const Header = () => {
-  const {
-    auth: { user },
-    logout,
-  } = useAuth()
-  const logOut = () => {
-    logout()
+  const { user } = useSelector((state) => state.auth)
+  const cart = useSelector((state) => state.cart)
+  const dispatch = useDispatch()
+  const getTotalQuantity = () => {
+    let total = 0
+    // console.log(cart)
+    cart.cart.forEach((item) => {
+      // console.log(item)
+      total += item.quantity
+    })
+    return total
+  }
+  const handleClick = () => {
+    dispatch(logout())
   }
   return (
     <Box>
@@ -33,27 +43,25 @@ export const Header = () => {
             alt="logogif"
           />
         </Box>
-        <Flex align="center" justify="space-between" gap={5} padding={5}>
+        <Flex align="center" justify="space-between" gap={5} padding={3}>
           <Link as={NavLink} to="/">
             Home
           </Link>
           <Link as={NavLink} to="/products">
             Products
           </Link>
-          <Link as={NavLink} to="/hola">
-            Cart
+          <Link as={NavLink} to="/cart" display="flex" gap={5}>
+            <FaShoppingBag fontSize="20px" /> {getTotalQuantity() || 0}
           </Link>
           <Link as={NavLink} to="/profile">
             Profile
           </Link>
           {user ? (
-            <Link to="/profile" bg="none" onClick={logOut}>
+            <Link to="/profile" bg="none" onClick={handleClick}>
               Log Out
             </Link>
           ) : (
-            <Link to="/">
-              <ModalHandle />
-            </Link>
+            <Modalwindow />
           )}
         </Flex>
       </Flex>

@@ -14,7 +14,7 @@ import { useLogin } from "../../services/ZustandHook/zustand"
 import { LoginForm } from "../Forms/LoginForm"
 import { RegisterForm } from "../Forms/RegisterForm"
 
-export const ModalHandle = () => {
+export const Modalwindow = () => {
   const { isOpen, onOpen, onClose } = useLogin()
   const [switchForm, setSwitchForm] = useState(true)
 

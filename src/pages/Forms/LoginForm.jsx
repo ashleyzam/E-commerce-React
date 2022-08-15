@@ -10,7 +10,8 @@ import {
   Flex,
 } from "@chakra-ui/react"
 import { useForm } from "react-hook-form"
-import { useAuth } from "../../services/ZustandHook/useAuth"
+import { login } from "../../services/Redux/Slices/auth"
+import { useDispatch } from "react-redux"
 
 export const LoginForm = () => {
   const {
@@ -18,7 +19,7 @@ export const LoginForm = () => {
     register,
     formState: { errors, isSubmitting },
   } = useForm()
-  const { login } = useAuth()
+  const dispatch = useDispatch()
 
   const onSubmit = async ({ email, password }) => {
     const res = await fetch(`http://localhost:1337/api/auth/local`, {
@@ -30,7 +31,7 @@ export const LoginForm = () => {
     if (!data.user) {
       alert("this account does not exist, please register")
     }
-    login(data)
+    dispatch(login(data))
   }
 
   return (
