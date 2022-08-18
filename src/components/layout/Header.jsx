@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom"
 import { Link, Flex, Box, Image } from "@chakra-ui/react"
 import { Modalwindow } from "../../pages/auth/Modal"
-import { useDispatch } from "react-redux"
-import { useSelector } from "react-redux/es/exports"
+import { useDispatch, useSelector } from "react-redux"
+
 import { logout } from "../../services/Redux/Slices/auth"
 import { FaShoppingBag } from "react-icons/fa"
 
@@ -11,13 +11,12 @@ export const Header = () => {
   const cart = useSelector((state) => state.cart)
   const dispatch = useDispatch()
   const getTotalQuantity = () => {
-    let total = 0
+    let result = 0
     // console.log(cart)
     cart.cart.forEach((item) => {
-      // console.log(item)
-      total += item.quantity
+      result += item.quantity
     })
-    return total
+    return result
   }
   const handleClick = () => {
     dispatch(logout())
