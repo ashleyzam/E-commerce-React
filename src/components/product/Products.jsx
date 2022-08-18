@@ -13,13 +13,11 @@ import { FilterProducts } from "../product/FilterProducts"
 import { useGet } from "../../services/useGet"
 
 const Products = () => {
-  const { data, page, isLoading, setPage, setFilters } = useGet()
+  const { data, page, isLoading, setPages, setTitleValues } = useGet()
   const dispatch = useDispatch()
   const toast = useToast()
 
-  // const navigate = useNavigate()
-
-  const handleClick = (data) => {
+  const handleAdd = (data) => {
     dispatch(addToCart(data))
     toast({
       title: "a product was added to cart",
@@ -32,7 +30,7 @@ const Products = () => {
 
   return (
     <>
-      <FilterProducts setPage={setPage} setFilters={setFilters} />
+      <FilterProducts setTitleValues={setTitleValues} />
       {isLoading && <Spinner />}
       {data &&
         data.map((product) => (
@@ -58,20 +56,20 @@ const Products = () => {
               <Button colorScheme="blue">Details</Button>
             </Link>
 
-            <Button onClick={() => handleClick(product)}>add</Button>
+            <Button onClick={() => handleAdd(product)}>add</Button>
           </Flex>
         ))}
       <Flex justify="center" alignItems="flex-end" w="100%" gap={3} h="150">
         <Button
           isDisabled={page === 0 && "disabled"}
-          onClick={() => setPage(page - 3)}
+          onClick={() => setPages(page - 3)}
           colorScheme="blue"
         >
           {"<"} Previous
         </Button>
         <Button
-          isDisabled={page === 2}
-          onClick={() => setPage(page + 3)}
+          isDisabled={page === 2 && "disabled"}
+          onClick={() => setPages(page + 3)}
           colorScheme="blue"
         >
           Next {">"}

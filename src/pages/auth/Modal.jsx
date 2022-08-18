@@ -10,21 +10,28 @@ import {
   Flex,
 } from "@chakra-ui/react"
 import { AiOutlineUser } from "react-icons/ai"
-import { useLogin } from "../../services/ZustandHook/zustand"
+// import { useLogin } from "../../services/ZustandHook/zustand"
+import { useDispatch, useSelector } from "react-redux"
+import { openModal, onClose } from "../../services/Redux/Slices/modal"
 import { LoginForm } from "../Forms/LoginForm"
 import { RegisterForm } from "../Forms/RegisterForm"
 
 export const Modalwindow = () => {
-  const { isOpen, onOpen, onClose } = useLogin()
+  const dispatch = useDispatch()
+  const modal = useSelector((state) => state.modal)
   const [switchForm, setSwitchForm] = useState(true)
 
   return (
     <>
-      <Button onClick={onOpen} bg="black" _hover={{ bg: "none" }}>
+      <Button
+        onClick={() => dispatch(openModal())}
+        bg="black"
+        _hover={{ bg: "none" }}
+      >
         <AiOutlineUser fontSize="20" />
       </Button>
 
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={modal} onClose={() => dispatch(onClose())}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>

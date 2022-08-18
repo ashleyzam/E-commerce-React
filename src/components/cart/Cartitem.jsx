@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux"
 import {
-  increaseStock,
+  increaseQuantity,
   removeItem,
   clearCart,
 } from "../../services/Redux/Slices/cart"
@@ -12,19 +12,17 @@ const Cartitem = () => {
   const cart = useSelector((state) => state.cart)
   const dispatch = useDispatch()
   const toast = useToast()
-  const emptyCart = (data) => {
-    dispatch(clearCart(data))
-  }
+  // const emptyCart = (data) => {
+  //   dispatch(clearCart(data))
+  // }
   const handleRemove = (data) => {
     dispatch(removeItem(data))
   }
   const handleIncrement = (data) => {
-    dispatch(increaseStock(data))
+    dispatch(increaseQuantity(data))
     toast({
       title: "a product was added to cart",
-      description: "",
       status: "success",
-      duration: 5000,
       isClosable: true,
     })
   }
@@ -52,7 +50,7 @@ const Cartitem = () => {
           <Button onClick={() => handleRemove(item.id)}>
             {<FcEmptyTrash />}
           </Button>
-          <Button onClick={() => emptyCart(item)}>Clear</Button>
+          <Button onClick={() => dispatch(clearCart(item))}>Clear</Button>
         </Flex>
       ))}
     </Flex>
