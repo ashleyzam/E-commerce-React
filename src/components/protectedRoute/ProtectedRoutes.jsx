@@ -1,9 +1,8 @@
 import { Navigate, Outlet } from "react-router-dom"
-import { useAuth } from "../../services/ZustandHook/useAuth"
+import { useSelector } from "react-redux"
+
 const ProtectedRoutes = () => {
-  const {
-    auth: { user },
-  } = useAuth()
+  const { user } = useSelector((state) => state.auth)
 
   if (!user) {
     return <Navigate to="/" />

@@ -1,4 +1,6 @@
+import { useDispatch } from "react-redux"
 import { useForm } from "react-hook-form"
+import { login } from "../../services/Redux/Slices/auth"
 import {
   ModalFooter,
   Button,
@@ -10,14 +12,14 @@ import {
   Heading,
   Flex,
 } from "@chakra-ui/react"
-import { useAuth } from "../../services/ZustandHook/useAuth"
+
 const RegisterForm = () => {
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
   } = useForm()
-  const { login } = useAuth()
+  const dispatch = useDispatch()
   const onSubmit = async ({ username, email, password }) => {
     const res = await fetch(`http://localhost:1337/api/auth/local/register`, {
       method: "POST",
@@ -28,7 +30,7 @@ const RegisterForm = () => {
     if (!data.user) {
       throw new Error("error")
     }
-    login(data)
+    dispatch(login(data))
   }
 
   return (
@@ -39,12 +41,12 @@ const RegisterForm = () => {
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <VStack spacing={10} mt={20}>
-          <FormControl isInvalid={errors.name}>
+          <FormControl isInvalid={errors.username}>
             <FormLabel htmlFor="username">User name*</FormLabel>
             <Input
               type="text"
               w="100%"
-              id="name"
+              id="username"
               placeholder="Choose your user name"
               {...register("username", {
                 required: "This field is required",

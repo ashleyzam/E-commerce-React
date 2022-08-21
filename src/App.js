@@ -7,6 +7,7 @@ import { Error404 } from "./404/Error404"
 import { ProductsDetails } from "./components/product/ProductsDetails"
 import { Profile } from "./pages/Profile/Profile.jsx"
 import { ProtectedRoutes } from "./components/protectedRoute/ProtectedRoutes"
+import { Cartitem } from "./components/cart/Cartitem"
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />
           <Route path="/products/:id" element={<ProductsDetails />} />
+          <Route path="/cart" element={<Cartitem />} />
           <Route element={<ProtectedRoutes />}>
             <Route path="/profile" element={<Profile />} />
           </Route>

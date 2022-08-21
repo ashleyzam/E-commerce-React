@@ -1,16 +1,25 @@
+import { useDispatch, useSelector } from "react-redux"
 import { NavLink } from "react-router-dom"
+import { FaShoppingBag, FaHome } from "react-icons/fa"
+import { onOpenCart } from "../../services/Redux/Slices/openCart"
+import { logout } from "../../services/Redux/Slices/auth"
+import { Cartdrawer } from "../cart/Cartdrawer"
+import { Modalwindow } from "../../pages/auth/Modal"
 import { Link, Flex, Box, Image } from "@chakra-ui/react"
-import { ModalHandle } from "../../pages/auth/Modal"
-import { useAuth } from "../../services/ZustandHook/useAuth"
-// import { useZustand } from "../../services/ZustandHook/zustand"
 
 export const Header = () => {
-  const {
-    auth: { user },
-    logout,
-  } = useAuth()
-  const logOut = () => {
-    logout()
+  const { user } = useSelector((state) => state.auth)
+  const cart = useSelector((state) => state.cart)
+  const dispatch = useDispatch()
+  const getTotalQuantity = () => {
+    let result = 0
+    cart.cart.forEach((item) => {
+      result += item.quantity
+    })
+    return result
+  }
+  const handleClick = () => {
+    dispatch(logout())
   }
   return (
     <Box>
@@ -33,27 +42,28 @@ export const Header = () => {
             alt="logogif"
           />
         </Box>
-        <Flex align="center" justify="space-between" gap={5} padding={5}>
+        <Flex align="center" justify="space-between" gap={5} padding={3}>
           <Link as={NavLink} to="/">
-            Home
+            <FaHome fontSize="20px" />
           </Link>
           <Link as={NavLink} to="/products">
             Products
           </Link>
-          <Link as={NavLink} to="/hola">
-            Cart
+          <Link onClick={() => dispatch(onOpenCart())} display="flex" gap={5}>
+            <FaShoppingBag fontSize="20px" />
+            <Cartdrawer />
+
+            {getTotalQuantity() || 0}
           </Link>
           <Link as={NavLink} to="/profile">
             Profile
           </Link>
           {user ? (
-            <Link to="/profile" bg="none" onClick={logOut}>
+            <Link to="/profile" bg="none" onClick={handleClick}>
               Log Out
             </Link>
           ) : (
-            <Link to="/">
-              <ModalHandle />
-            </Link>
+            <Modalwindow />
           )}
         </Flex>
       </Flex>
