@@ -80,14 +80,14 @@ const Products = () => {
         ))}
       <Flex justify="center" alignItems="flex-end" w="100%" gap={3} h="150">
         <Button
-          isDisabled={page === 0 && "disabled"}
+          isDisabled={page === 0}
           onClick={() => setPages(page - 3)}
           colorScheme="linkedin"
         >
           {"<"} Previous
         </Button>
         <Button
-          isDisabled={page === 3}
+          isDisabled={page === 6}
           onClick={() => setPages(page + 3)}
           colorScheme="linkedin"
         >
