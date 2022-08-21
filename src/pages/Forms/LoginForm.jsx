@@ -1,3 +1,6 @@
+import { useDispatch } from "react-redux"
+import { useForm } from "react-hook-form"
+import { login } from "../../services/Redux/Slices/auth"
 import {
   ModalFooter,
   Button,
@@ -8,10 +11,8 @@ import {
   VStack,
   Heading,
   Flex,
+  useToast,
 } from "@chakra-ui/react"
-import { useForm } from "react-hook-form"
-import { login } from "../../services/Redux/Slices/auth"
-import { useDispatch } from "react-redux"
 
 export const LoginForm = () => {
   const {
@@ -20,7 +21,7 @@ export const LoginForm = () => {
     formState: { errors, isSubmitting },
   } = useForm()
   const dispatch = useDispatch()
-
+  const toast = useToast()
   const onSubmit = async ({ email, password }) => {
     const res = await fetch(`http://localhost:1337/api/auth/local`, {
       method: "POST",
@@ -29,7 +30,12 @@ export const LoginForm = () => {
     })
     const data = await res.json()
     if (!data.user) {
-      alert("this account does not exist, please register")
+      toast({
+        title: "An error occurred.",
+        description: "This account does not exist, please register",
+        status: "error",
+        isClosable: true,
+      })
     }
     dispatch(login(data))
   }

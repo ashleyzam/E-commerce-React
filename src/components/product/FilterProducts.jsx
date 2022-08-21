@@ -4,7 +4,7 @@ const FilterProducts = ({ setTitleValues }) => {
   return (
     <FormControl mb={20}>
       <Input
-        placeholder="search here"
+        placeholder="Search products"
         onChange={(e) => setTitleValues(e.target.value)}
       />
     </FormControl>

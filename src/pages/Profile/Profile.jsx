@@ -1,10 +1,10 @@
-import { Box, Heading, Text } from "@chakra-ui/react"
 import { useSelector } from "react-redux"
+import { Box, Heading, Text } from "@chakra-ui/react"
 
 const Profile = () => {
   const { user } = useSelector((state) => state.auth)
   return (
-    <Box>
+    <Box h="100vh">
       <Heading>hola {user.username}</Heading>
       <Text>
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Et qui quae

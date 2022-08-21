@@ -46,6 +46,7 @@ const ProductsDetails = () => {
       {isLoading && <Spinner />}
       {product && (
         <Flex
+          height="100vh"
           maxWidth="450"
           flexDirection="column"
           alignItems="center"
@@ -65,7 +66,10 @@ const ProductsDetails = () => {
             }
           />
           <Text>{product.data.attributes.description}</Text>
-          <Button colorScheme="blue" onClick={() => handleClick(product.data)}>
+          <Button
+            colorScheme="linkedin"
+            onClick={() => handleClick(product.data)}
+          >
             Add to cart
           </Button>
         </Flex>

@@ -8,12 +8,23 @@ import {
   Button,
   useToast,
   Spinner,
+  Text,
 } from "@chakra-ui/react"
 import { FilterProducts } from "../product/FilterProducts"
 import { useGet } from "../../services/useGet"
+import { FilterCategories } from "./FilterCategories"
+import { FilterPrices } from "./FilterPrices"
 
 const Products = () => {
-  const { data, page, isLoading, setPages, setTitleValues } = useGet()
+  const {
+    data,
+    page,
+    isLoading,
+    setPages,
+    setTitleValues,
+    setCategories,
+    setMinPrice,
+  } = useGet()
   const dispatch = useDispatch()
   const toast = useToast()
 
@@ -30,30 +41,39 @@ const Products = () => {
 
   return (
     <>
-      <FilterProducts setTitleValues={setTitleValues} />
+      <Flex w="100%">
+        <FilterProducts setTitleValues={setTitleValues} setPages={setPages} />
+        <FilterCategories setCategories={setCategories} />
+        <FilterPrices setMinPrice={setMinPrice} />
+      </Flex>
       {isLoading && <Spinner />}
       {data &&
         data.map((product) => (
           <Flex
-            gap="30px"
-            maxWidth="550"
+            gap="15px"
+            maxWidth="450"
+            m={15}
+            border="1px solid #dddddd"
+            h={500}
             flexDirection="column"
             alignItems="center"
             justify="center"
             minWidth={200}
             wrap="wrap"
-            w="50%"
+            w="70%"
             key={product.id}
           >
             <Heading>{product.attributes.title}</Heading>
             <Image
-              w={200}
+              objectFit="scale-down"
+              w={250}
               src={
                 product.attributes.image.data.attributes.formats.thumbnail.url
               }
             />
+            <Text textAlign="center">Price: ${product.attributes.price}</Text>
             <Link to={`/products/${product.id}`}>
-              <Button colorScheme="blue">Details</Button>
+              <Button colorScheme="linkedin">Details</Button>
             </Link>
 
             <Button onClick={() => handleAdd(product)}>add</Button>
@@ -63,14 +83,14 @@ const Products = () => {
         <Button
           isDisabled={page === 0 && "disabled"}
           onClick={() => setPages(page - 3)}
-          colorScheme="blue"
+          colorScheme="linkedin"
         >
           {"<"} Previous
         </Button>
         <Button
-          isDisabled={page === 2 && "disabled"}
+          isDisabled={page === 3}
           onClick={() => setPages(page + 3)}
-          colorScheme="blue"
+          colorScheme="linkedin"
         >
           Next {">"}
         </Button>

@@ -1,10 +1,11 @@
-import { NavLink } from "react-router-dom"
-import { Link, Flex, Box, Image } from "@chakra-ui/react"
-import { Modalwindow } from "../../pages/auth/Modal"
 import { useDispatch, useSelector } from "react-redux"
-
+import { NavLink } from "react-router-dom"
+import { FaShoppingBag, FaHome } from "react-icons/fa"
+import { onOpenCart } from "../../services/Redux/Slices/openCart"
 import { logout } from "../../services/Redux/Slices/auth"
-import { FaShoppingBag } from "react-icons/fa"
+import { Cartdrawer } from "../cart/Cartdrawer"
+import { Modalwindow } from "../../pages/auth/Modal"
+import { Link, Flex, Box, Image } from "@chakra-ui/react"
 
 export const Header = () => {
   const { user } = useSelector((state) => state.auth)
@@ -12,7 +13,6 @@ export const Header = () => {
   const dispatch = useDispatch()
   const getTotalQuantity = () => {
     let result = 0
-    // console.log(cart)
     cart.cart.forEach((item) => {
       result += item.quantity
     })
@@ -44,13 +44,16 @@ export const Header = () => {
         </Box>
         <Flex align="center" justify="space-between" gap={5} padding={3}>
           <Link as={NavLink} to="/">
-            Home
+            <FaHome fontSize="20px" />
           </Link>
           <Link as={NavLink} to="/products">
             Products
           </Link>
-          <Link as={NavLink} to="/cart" display="flex" gap={5}>
-            <FaShoppingBag fontSize="20px" /> {getTotalQuantity() || 0}
+          <Link onClick={() => dispatch(onOpenCart())} display="flex" gap={5}>
+            <FaShoppingBag fontSize="20px" />
+            <Cartdrawer />
+
+            {getTotalQuantity() || 0}
           </Link>
           <Link as={NavLink} to="/profile">
             Profile

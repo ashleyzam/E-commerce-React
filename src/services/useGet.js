@@ -5,13 +5,15 @@ const useGet = () => {
   const [error, setError] = useState()
   const [page, setPages] = useState(0)
   const [titleValues, setTitleValues] = useState("")
+
+  const [categories, setCategories] = useState("")
   const qs = require("qs")
 
   const filters = qs.stringify(
     {
       filters: {
         title: {
-          $contains: `${titleValues}`,
+          $containsi: `${titleValues}`,
         },
       },
     },
@@ -30,12 +32,40 @@ const useGet = () => {
       encodeValuesOnly: true,
     }
   )
+  const filterCategory = qs.stringify(
+    {
+      filters: {
+        categories: {
+          name: {
+            $containsi: `${categories}`,
+          },
+        },
+      },
+    },
+    {
+      encodeValuesOnly: true,
+    }
+  )
+  const [minPrice, setMinPrice] = useState()
+  const filterPrice = qs.stringify(
+    {
+      filters: {
+        price: {
+          $lte: `${minPrice}`,
+        },
+      },
+    },
+    {
+      encodeValuesOnly: true,
+    }
+  )
 
   useEffect(() => {
-    const getData = async (url) => {
+    const getData = async () => {
       setIsLoading(true)
       const res = await fetch(
-        `http://localhost:1337/api/products?populate=image&${pages}&${filters}`
+        `http://localhost:1337/api/products?populate=image&populate=categories&${pages}&${filters}&${filterCategory}&` ||
+          filterPrice
       )
       setIsLoading(false)
       const data = await res.json()
@@ -45,8 +75,17 @@ const useGet = () => {
       setData(data.data)
     }
     getData()
-  }, [pages, filters])
+  }, [pages, filters, filterCategory, filterPrice])
 
-  return { data, isLoading, error, page, setPages, setTitleValues }
+  return {
+    data,
+    isLoading,
+    error,
+    page,
+    setPages,
+    setTitleValues,
+    setCategories,
+    setMinPrice,
+  }
 }
 export { useGet }
