@@ -23,7 +23,7 @@ const Products = () => {
     setPages,
     setTitleValues,
     setCategories,
-    setMinPrice,
+    setPrice,
   } = useGet()
   const dispatch = useDispatch()
   const toast = useToast()
@@ -44,7 +44,7 @@ const Products = () => {
       <Flex w="100%">
         <FilterProducts setTitleValues={setTitleValues} setPages={setPages} />
         <FilterCategories setCategories={setCategories} />
-        <FilterPrices setMinPrice={setMinPrice} />
+        <FilterPrices setPrice={setPrice} />
       </Flex>
       {isLoading && <Spinner />}
       {data &&
@@ -54,7 +54,6 @@ const Products = () => {
             maxWidth="450"
             m={15}
             border="1px solid #dddddd"
-            h={500}
             flexDirection="column"
             alignItems="center"
             justify="center"

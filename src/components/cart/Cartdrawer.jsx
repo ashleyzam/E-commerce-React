@@ -27,6 +27,7 @@ import {
 import { FaHome } from "react-icons/fa"
 
 const Cartdrawer = () => {
+  // button que hace el post const onSubmit async = ()
   const btnRef = React.useRef()
   const cart = useSelector((state) => state.cart)
   const openCart = useSelector((state) => state.openCart)

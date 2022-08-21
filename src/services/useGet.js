@@ -46,12 +46,13 @@ const useGet = () => {
       encodeValuesOnly: true,
     }
   )
-  const [minPrice, setMinPrice] = useState()
+  const [price, setPrice] = useState("")
+
   const filterPrice = qs.stringify(
     {
       filters: {
         price: {
-          $lte: `${minPrice}`,
+          $containsi: `${price}`,
         },
       },
     },
@@ -64,8 +65,7 @@ const useGet = () => {
     const getData = async () => {
       setIsLoading(true)
       const res = await fetch(
-        `http://localhost:1337/api/products?populate=image&populate=categories&${pages}&${filters}&${filterCategory}&` ||
-          filterPrice
+        `http://localhost:1337/api/products?populate=image&populate=categories&${pages}&${filters}&${filterCategory}&${filterPrice}`
       )
       setIsLoading(false)
       const data = await res.json()
@@ -85,7 +85,7 @@ const useGet = () => {
     setPages,
     setTitleValues,
     setCategories,
-    setMinPrice,
+    setPrice,
   }
 }
 export { useGet }
