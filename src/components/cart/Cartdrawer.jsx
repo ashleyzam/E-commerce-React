@@ -34,6 +34,26 @@ const Cartdrawer = () => {
   const dispatch = useDispatch()
   const toast = useToast()
 
+  const onSubmit = async ({ cart }) => {
+    console.log("hola")
+    const data = {
+      Item: cart,
+
+      users_permissions_users: "1",
+    }
+    console.log(JSON.stringify({ data }))
+    const res = await fetch(`http://localhost:1337/api/orders`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ data }),
+    })
+    const info = await res.json()
+    if (!info.data) {
+      throw new Error("error")
+    }
+    console.log(data)
+  }
+
   const getTotal = () => {
     let totalQuantity = 0
     let totalPrice = 0
@@ -160,7 +180,7 @@ const Cartdrawer = () => {
                 <Link as={NavLink} to="/cart">
                   <Button>Go to cart</Button>
                 </Link>
-
+                <Button onClick={() => onSubmit(cart)}> Finish </Button>
                 <Button onClick={() => dispatch(clearCart())} colorScheme="red">
                   Empty cart
                 </Button>
