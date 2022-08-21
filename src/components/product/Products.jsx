@@ -47,6 +47,9 @@ const Products = () => {
         <FilterPrices setPrice={setPrice} />
       </Flex>
       {isLoading && <Spinner />}
+      {data && !data.length && (
+        <Text>No products matching the current search</Text>
+      )}
       {data &&
         data.map((product) => (
           <Flex

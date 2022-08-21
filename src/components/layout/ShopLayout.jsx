@@ -9,11 +9,11 @@ const ShopLayout = ({ children }) => {
       <Flex
         w="100%"
         h="100vh"
+        p={200}
         flexDirection="row"
         alignItems="center"
         justify="center"
         flexWrap="wrap"
-        p={6}
       >
         {children}
       </Flex>
