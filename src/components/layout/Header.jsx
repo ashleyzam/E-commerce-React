@@ -31,6 +31,8 @@ export const Header = () => {
         w="100%"
         mb={8}
         p={5}
+        position="fixed"
+        zIndex={2}
         bg="black"
         color="white"
       >
