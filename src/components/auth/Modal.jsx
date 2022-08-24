@@ -10,11 +10,10 @@ import {
   Flex,
 } from "@chakra-ui/react"
 import { AiOutlineUser } from "react-icons/ai"
-// import { useLogin } from "../../services/ZustandHook/zustand"
 import { useDispatch, useSelector } from "react-redux"
 import { openModal, onClose } from "../../services/Redux/Slices/modal"
-import { LoginForm } from "../Forms/LoginForm"
-import { RegisterForm } from "../Forms/RegisterForm"
+import { LoginForm } from "../../components/Forms/LoginForm"
+import { RegisterForm } from "../../components/Forms/RegisterForm"
 
 export const Modalwindow = () => {
   const dispatch = useDispatch()
