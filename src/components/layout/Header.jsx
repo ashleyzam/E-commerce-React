@@ -4,7 +4,7 @@ import { FaShoppingBag, FaHome } from "react-icons/fa"
 import { onOpenCart } from "../../services/Redux/Slices/openCart"
 import { logout } from "../../services/Redux/Slices/auth"
 import { Cartdrawer } from "../cart/Cartdrawer"
-import { Modalwindow } from "../../pages/auth/Modal"
+import { Modalwindow } from "../auth/Modal"
 import { Link, Flex, Box, Image } from "@chakra-ui/react"
 
 export const Header = () => {
@@ -35,6 +35,7 @@ export const Header = () => {
         zIndex={2}
         bg="black"
         color="white"
+        borderBottom="2px solid yellow"
       >
         <Box>
           <Image
@@ -51,11 +52,13 @@ export const Header = () => {
           <Link as={NavLink} to="/products">
             Products
           </Link>
-          <Link onClick={() => dispatch(onOpenCart())} display="flex" gap={5}>
+          <Link onClick={() => dispatch(onOpenCart())} display="flex">
             <FaShoppingBag fontSize="20px" />
             <Cartdrawer />
 
-            {getTotalQuantity() || 0}
+            <Box borderRadius="100%" w="26px" bg="yellow" color="black">
+              {getTotalQuantity() || 0}
+            </Box>
           </Link>
           <Link as={NavLink} to="/profile">
             Profile

@@ -34,7 +34,7 @@ const Cartdrawer = () => {
   const dispatch = useDispatch()
   const toast = useToast()
 
-  const onSubmit = async ({ cart }) => {
+  const sendData = async ({ cart }) => {
     console.log("hola")
     const data = {
       Item: cart,
@@ -180,7 +180,7 @@ const Cartdrawer = () => {
                 <Link as={NavLink} to="/cart">
                   <Button>Go to cart</Button>
                 </Link>
-                <Button onClick={() => onSubmit(cart)}> Finish </Button>
+                <Button onClick={() => sendData(cart)}> Finish </Button>
                 <Button onClick={() => dispatch(clearCart())} colorScheme="red">
                   Empty cart
                 </Button>

@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react"
 
 import { addToCart } from "../../services/Redux/Slices/cart"
+import { FaShoppingBag } from "react-icons/fa"
 
 const ProductsDetails = () => {
   const [product, setProduct] = useState()
@@ -46,12 +47,12 @@ const ProductsDetails = () => {
       {isLoading && <Spinner />}
       {product && (
         <Flex
-          height="100vh"
-          maxWidth="450"
+          maxWidth="350"
+          minW="220"
           flexDirection="column"
           alignItems="center"
           justify="center"
-          minWidth={250}
+          border="1px solid #dddddd"
           wrap="wrap"
           gap="5"
           w="100%"
@@ -65,12 +66,13 @@ const ProductsDetails = () => {
                 .url
             }
           />
+          <Text>${product.data.attributes.price}</Text>
           <Text>{product.data.attributes.description}</Text>
           <Button
             colorScheme="linkedin"
             onClick={() => handleClick(product.data)}
           >
-            Add to cart
+            {<FaShoppingBag fontSize="20px" />}
           </Button>
         </Flex>
       )}
