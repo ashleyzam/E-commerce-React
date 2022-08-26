@@ -8,8 +8,8 @@ const ShopLayout = ({ children }) => {
       <Header />
       <Flex
         w="100%"
-        h="100%"
-        p={200}
+        minH="100vh"
+        p={100}
         flexDirection="row"
         alignItems="center"
         justify="center"

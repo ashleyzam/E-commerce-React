@@ -37,6 +37,7 @@ export const LoginForm = () => {
         isClosable: true,
       })
     }
+    console.log(data)
     dispatch(login(data))
   }
 
