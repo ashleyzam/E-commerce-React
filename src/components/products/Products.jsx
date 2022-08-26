@@ -9,12 +9,17 @@ import {
   useToast,
   Spinner,
   Text,
+  Box,
 } from "@chakra-ui/react"
 import { FilterProducts } from "./FilterProducts"
 import { useGet } from "../../Hooks/useGet"
 import { FilterCategories } from "./FilterCategories"
 import { FilterPrices } from "./FilterPrices"
 import { FaShoppingBag } from "react-icons/fa"
+import {
+  BsFillArrowRightSquareFill,
+  BsFillArrowLeftSquareFill,
+} from "react-icons/bs"
 
 const Products = () => {
   const {
@@ -35,28 +40,30 @@ const Products = () => {
       title: "a product was added to cart",
       description: "",
       status: "success",
-      duration: 9000,
+      duration: 2000,
       isClosable: true,
     })
   }
 
   return (
     <>
-      {isLoading && <Spinner />}
-      <Flex w="100%" gap={5} minW={350}>
+      <Flex w="100%" gap={5} minW={350} pt={58}>
         <FilterProducts setTitleValues={setTitleValues} setPages={setPages} />
         <FilterCategories setCategories={setCategories} />
         <FilterPrices setPrice={setPrice} />
       </Flex>
-
+      <Box w="100%" h="20px">
+        {isLoading && <Spinner />}
+      </Box>
       {data && !data.length && (
         <Text>No products matching the current search</Text>
       )}
+
       {data &&
         data.map((product) => (
           <Flex
-            gap="15px"
-            p="10px 0px 0px 0px"
+            gap="10px"
+            p="2px 1px 40px 1px"
             maxWidth="500"
             m={25}
             border="1px solid #dddddd"
@@ -65,13 +72,17 @@ const Products = () => {
             justify="center"
             minWidth={300}
             wrap="wrap"
-            w="20%"
+            borderRadius=" 8px 8px 40px 40px;"
+            w="18%"
             key={product.id}
           >
-            <Heading>{product.attributes.title}</Heading>
+            <Heading w="99%" bg="black" color="white" borderRadius={5} p={5}>
+              {product.attributes.title}
+            </Heading>
             <Image
               objectFit="scale-down"
-              w={250}
+              w="100%"
+              h={200}
               src={
                 product.attributes.image.data.attributes.formats.thumbnail.url
               }
@@ -79,31 +90,52 @@ const Products = () => {
             <Text mt="50px" textAlign="center">
               Price: ${product.attributes.price}
             </Text>
-            <Link to={`/products/${product.id}`}>
-              <Button colorScheme="linkedin">Details</Button>
-            </Link>
+            <Text mt="50px" textAlign="center">
+              Stock: {product.attributes.stock}
+            </Text>
 
-            <Button onClick={() => handleAdd(product)}>
-              {<FaShoppingBag fontSize="20px" />}
+            <Link to={`/products/${product.id}`}>
+              <Button colorScheme="green" p="0px 123px" color="white">
+                Details
+              </Button>
+            </Link>
+            <Button
+              bg="black"
+              p="0px 137px"
+              _hover={{ bg: "black" }}
+              onClick={() => handleAdd(product)}
+            >
+              {<FaShoppingBag fontSize="20px" color="white" />}
             </Button>
           </Flex>
         ))}
-      <Flex justify="center" alignItems="flex-end" w="100%" gap={3}>
-        <Button
-          isDisabled={page === 0}
-          onClick={() => setPages(page - 3)}
-          colorScheme="linkedin"
+      <>
+        <Flex
+          justify="center"
+          alignItems="flex-end"
+          w="100%"
+          gap={3}
+          m={15}
+          justifyContent="center"
         >
-          {"<"} Previous
-        </Button>
-        <Button
-          isDisabled={page === 6}
-          onClick={() => setPages(page + 3)}
-          colorScheme="linkedin"
-        >
-          Next {">"}
-        </Button>
-      </Flex>
+          <Button
+            isDisabled={page === 0}
+            onClick={() => setPages(page - 3)}
+            bg="black"
+            _hover={{ bg: "black" }}
+          >
+            <BsFillArrowLeftSquareFill color="white" />
+          </Button>
+          <Button
+            isDisabled={page === 6}
+            onClick={() => setPages(page + 3)}
+            bg="black"
+            _hover={{ bg: "black" }}
+          >
+            <BsFillArrowRightSquareFill color="white" />
+          </Button>
+        </Flex>
+      </>
     </>
   )
 }
