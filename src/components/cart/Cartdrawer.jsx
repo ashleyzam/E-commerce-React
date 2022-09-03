@@ -7,7 +7,7 @@ import {
   clearCart,
   decreaseQuantity,
 } from "../../services/Redux/Slices/cart"
-import { openModal } from "../../services/Redux/Slices/modal"
+
 import { FcEmptyTrash } from "react-icons/fc"
 import { onCloseCart } from "../../services/Redux/Slices/openCart"
 
@@ -25,52 +25,18 @@ import {
   DrawerCloseButton,
   DrawerBody,
   Link,
+  Spinner,
 } from "@chakra-ui/react"
-import { FaHome } from "react-icons/fa"
+import { FaHome, FaShoppingBag } from "react-icons/fa"
+import { useGet } from "../../Hooks/useGetProducts"
 
 const Cartdrawer = () => {
-  const { jwt, user } = useSelector((state) => state.auth)
   const btnRef = React.useRef()
   const cart = useSelector((state) => state.cart)
   const openCart = useSelector((state) => state.openCart)
+  const { isLoading } = useGet()
   const dispatch = useDispatch()
   const toast = useToast()
-
-  const sendData = async ({ cart }) => {
-    if (!user) {
-      dispatch(openModal()) &&
-        toast({
-          title: "please, log in or sign in to continue",
-          status: "error",
-          isClosable: true,
-        })
-    }
-    const data = {
-      Item: cart,
-      users_permissions_users: user.id,
-    }
-
-    const res = await fetch(`http://localhost:1337/api/orders`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${jwt}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ data }),
-    })
-    const info = await res.json()
-
-    if (!info.data) {
-      throw new Error("error")
-    }
-    toast({
-      title: "Purchase made successfully!",
-      description: "",
-      status: "success",
-      duration: 2000,
-      isClosable: true,
-    })
-  }
 
   const getTotal = () => {
     let totalQuantity = 0
@@ -130,6 +96,7 @@ const Cartdrawer = () => {
                 wrap="wrap"
                 gap={5}
               >
+                {isLoading && <Spinner />}
                 {cart.cart?.map((item) => (
                   <Box
                     key={item.id}
@@ -196,16 +163,19 @@ const Cartdrawer = () => {
                   total ({getTotal().totalQuantity}) :{" "}
                   <strong>${getTotal().totalPrice}</strong>
                 </Text>
-                <Link as={NavLink} to="/cart">
-                  <Button>Go to cart</Button>
-                </Link>
-                <Button colorScheme="green" onClick={() => sendData(cart)}>
-                  {" "}
-                  Finish{" "}
-                </Button>
-                <Button onClick={() => dispatch(clearCart())} colorScheme="red">
-                  Empty cart
-                </Button>
+                <Flex justify="flex-end" alignItems="flex-end" h={150} gap={5}>
+                  <Link as={NavLink} to="/cart">
+                    <Button bg="black" p="0px 48px" _hover={{ bg: "black" }}>
+                      {<FaShoppingBag fontSize="20px" color="white" />}
+                    </Button>{" "}
+                  </Link>
+                  <Button
+                    onClick={() => dispatch(clearCart())}
+                    colorScheme="red"
+                  >
+                    Empty cart
+                  </Button>
+                </Flex>
               </Flex>
             )}
           </DrawerBody>

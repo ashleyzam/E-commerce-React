@@ -1,6 +1,7 @@
-import { useParams } from "react-router-dom"
+import { useParams, NavLink } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
+
 import {
   Button,
   Flex,
@@ -9,6 +10,7 @@ import {
   Text,
   Spinner,
   useToast,
+  Link,
 } from "@chakra-ui/react"
 
 import { addToCart } from "../../services/Redux/Slices/cart"
@@ -21,12 +23,9 @@ const ProductsDetails = () => {
   const { id } = useParams()
   const dispatch = useDispatch()
   const toast = useToast()
-  console.log(product && product)
-  console.log(cart)
 
   const maxValue = () => {
     const findProd = cart.cart.find((prod) => prod.id === Number(id))
-    console.log(findProd)
     return findProd && findProd.quantity >= product.data.attributes.stock
   }
 
@@ -36,7 +35,7 @@ const ProductsDetails = () => {
       title: "a product was added to cart",
       description: "",
       status: "success",
-      duration: 9000,
+      duration: 2000,
       isClosable: true,
     })
   }
@@ -52,7 +51,7 @@ const ProductsDetails = () => {
   }, [id])
 
   return (
-    <>
+    <Flex direction="column">
       {isLoading && <Spinner />}
       {product && (
         <Flex
@@ -63,14 +62,14 @@ const ProductsDetails = () => {
           alignItems="center"
           justify="center"
           border="1px solid #dddddd"
-          borderRadius=" 8px 8px 40px 40px;"
+          p="2px 1px 10px 1px"
           wrap="wrap"
           gap="5"
+          bg="#dddde266"
           w="80%"
-          pb={50}
           m={20}
         >
-          <Heading w="99%" bg="black" color="white" borderRadius={5} p={5}>
+          <Heading w="99%" p={5}>
             {product.data.attributes.title}
           </Heading>
           <Image
@@ -84,20 +83,27 @@ const ProductsDetails = () => {
           />
           <Text>${product.data.attributes.price}</Text>
           <Text>{product.data.attributes.description}</Text>
-          <Text>{product.data.attributes.stock}</Text>
+          <Text>Stock: {product.data.attributes.stock}</Text>
 
           <Button
             isDisabled={maxValue()}
             bg="black"
             p="0px 137px"
-            _hover={{ bg: "black" }}
+            _hover={{ bg: "#3c3b3b" }}
             onClick={() => handleClick(product.data)}
           >
             {<FaShoppingBag fontSize="20px" color="white" />}
           </Button>
         </Flex>
       )}
-    </>
+      <Flex justify="center">
+        <Link as={NavLink} to="/products">
+          <Button bg="black" color="white" _hover={{ bg: "#3c3b3b" }}>
+            Go back
+          </Button>
+        </Link>
+      </Flex>
+    </Flex>
   )
 }
 
