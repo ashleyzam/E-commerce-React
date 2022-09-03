@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { addToCart } from "../../services/Redux/Slices/cart"
+import { FaShoppingBag } from "react-icons/fa"
+import {
+  BsFillArrowRightSquareFill,
+  BsFillArrowLeftSquareFill,
+} from "react-icons/bs"
 import {
   Flex,
   Heading,
@@ -12,14 +17,9 @@ import {
   Box,
 } from "@chakra-ui/react"
 import { FilterProducts } from "./FilterProducts"
-import { useGet } from "../../Hooks/useGet"
+import { useGet } from "../../Hooks/useGetProducts"
 import { FilterCategories } from "./FilterCategories"
 import { FilterPrices } from "./FilterPrices"
-import { FaShoppingBag } from "react-icons/fa"
-import {
-  BsFillArrowRightSquareFill,
-  BsFillArrowLeftSquareFill,
-} from "react-icons/bs"
 
 const Products = () => {
   const {
@@ -33,7 +33,7 @@ const Products = () => {
   } = useGet()
   const dispatch = useDispatch()
   const toast = useToast()
-
+  const cart = useSelector((state) => state.cart)
   const handleAdd = (data) => {
     dispatch(addToCart(data))
     toast({
@@ -44,11 +44,15 @@ const Products = () => {
       isClosable: true,
     })
   }
+  const maxValue = (id) => {
+    const findProd = cart.cart.find((prod) => prod.id === id)
+    return findProd && findProd.quantity
+  }
 
   return (
     <>
-      <Flex w="100%" gap={5} minW={350} pt={58}>
-        <FilterProducts setTitleValues={setTitleValues} setPages={setPages} />
+      <Flex w="100%" gap={5} minW={250} p="70px 20px 0px 20px" bg="#ccd8d4">
+        <FilterProducts setTitleValues={setTitleValues} />
         <FilterCategories setCategories={setCategories} />
         <FilterPrices setPrice={setPrice} />
       </Flex>
@@ -63,8 +67,8 @@ const Products = () => {
         data.map((product) => (
           <Flex
             gap="10px"
-            p="2px 1px 40px 1px"
-            maxWidth="500"
+            p="2px 1px 10px 1px"
+            maxWidth="310"
             m={25}
             border="1px solid #dddddd"
             flexDirection="column"
@@ -72,11 +76,12 @@ const Products = () => {
             justify="center"
             minWidth={300}
             wrap="wrap"
-            borderRadius=" 8px 8px 40px 40px;"
+            mt={50}
+            bg="#dddde266"
             w="18%"
             key={product.id}
           >
-            <Heading w="99%" bg="black" color="white" borderRadius={5} p={5}>
+            <Heading w="99%" color="black" borderRadius={5} p={5}>
               {product.attributes.title}
             </Heading>
             <Image
@@ -87,26 +92,29 @@ const Products = () => {
                 product.attributes.image.data.attributes.formats.thumbnail.url
               }
             />
-            <Text mt="50px" textAlign="center">
-              Price: ${product.attributes.price}
-            </Text>
-            <Text mt="50px" textAlign="center">
-              Stock: {product.attributes.stock}
-            </Text>
-
-            <Link to={`/products/${product.id}`}>
-              <Button colorScheme="green" p="0px 123px" color="white">
-                Details
+            <Text textAlign="center">Price: ${product.attributes.price}</Text>
+            <Text textAlign="center">Stock: {product.attributes.stock}</Text>
+            <Flex justify="flex-end" h={128} flexDirection="column" gap={2}>
+              <Link to={`/products/${product.id}`}>
+                <Button
+                  bg="black"
+                  p="0px 123px"
+                  color="white"
+                  _hover={{ bg: "#3c3b3b" }}
+                >
+                  Details
+                </Button>
+              </Link>
+              <Button
+                bg="#2cc7ad"
+                p="0px 137px"
+                _hover={{ bg: "#66e8d2" }}
+                onClick={() => handleAdd(product)}
+                isDisabled={maxValue(product.id) === product.attributes.stock}
+              >
+                {<FaShoppingBag fontSize="20px" color="white" />}
               </Button>
-            </Link>
-            <Button
-              bg="black"
-              p="0px 137px"
-              _hover={{ bg: "black" }}
-              onClick={() => handleAdd(product)}
-            >
-              {<FaShoppingBag fontSize="20px" color="white" />}
-            </Button>
+            </Flex>
           </Flex>
         ))}
       <>

@@ -24,7 +24,7 @@ export const Modalwindow = () => {
     <>
       <Button
         onClick={() => dispatch(openModal())}
-        bg="black"
+        bg="#ff8100"
         _hover={{ bg: "none" }}
       >
         <AiOutlineUser fontSize="20" />

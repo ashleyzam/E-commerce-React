@@ -1,4 +1,5 @@
 import "./App.css"
+import "./index.css"
 import { Routes, Route } from "react-router-dom"
 import ShopLayout from "./components/layout/ShopLayout"
 import { Products } from "./components/products/Products.jsx"

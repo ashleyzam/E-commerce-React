@@ -6,7 +6,7 @@ import { logout } from "../../services/Redux/Slices/auth"
 import { Cartdrawer } from "../cart/Cartdrawer"
 import { Modalwindow } from "../auth/Modal"
 import { Link, Flex, Box, Image } from "@chakra-ui/react"
-
+import logo from "../../assets/logo.png"
 export const Header = () => {
   const { user } = useSelector((state) => state.auth)
   const cart = useSelector((state) => state.cart)
@@ -25,24 +25,27 @@ export const Header = () => {
     <Box>
       <Flex
         as="nav"
+        minW={350}
         align="center"
         justify="space-between"
         wrap="wrap"
         w="100%"
         mb={8}
-        p={5}
+        p={2}
         position="fixed"
         zIndex={2}
-        bg="black"
+        bg="#268ba5"
         color="white"
-        borderBottom="2px solid yellow"
+        borderBottom="2px solid black"
       >
         <Box>
           <Image
-            w={20}
-            h="10"
-            src="https://static.vecteezy.com/system/resources/previews/002/486/285/non_2x/violet-purple-gradient-background-mesh-free-vector.jpg"
+            ml="13px"
+            w="110px"
+            h="80px"
+            src={logo}
             alt="logogif"
+            border="2px solid #4cedff"
           />
         </Box>
         <Flex align="center" justify="space-between" gap={5} padding={3}>

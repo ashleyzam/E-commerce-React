@@ -4,11 +4,13 @@ import React from "react"
 const FilterCategories = ({ setCategories }) => {
   return (
     <Select
+      bg="white"
       placeholder="Categories"
       onChange={(e) => setCategories(e.target.value)}
     >
+      <option value="smartwatch">Smartwatch</option>
       <option value="headphones">Headphones</option>
-      <option value="Smartwatch">Smartwatch</option>
+      <option value="laptop">Laptop</option>
     </Select>
   )
 }
