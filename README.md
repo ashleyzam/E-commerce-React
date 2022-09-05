@@ -8,7 +8,7 @@ _Próximamente deployaremos el proyecto para que pueda visualizarse y verse en a
 
 ## Construido con 🛠️
 
-* [Chakra UI](https://chakra-ui.com/) - El framework web usado
+* [Chakra UI](https://chakra-ui.com/) - El framework de diseño utilizado
 * [React Redux](https://react-redux.js.org/) - Manejador de estados globales
 * [Strapi](https://strapi.io/) - Encargado de almacenar y entregar contenido de manera estructurada
 * [Node js](https://nodejs.org/es/) - Usado para ejecutar los servidores de front-end y back-end
