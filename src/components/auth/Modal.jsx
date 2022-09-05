@@ -17,6 +17,7 @@ import { RegisterForm } from "../../components/Forms/RegisterForm"
 
 export const Modalwindow = () => {
   const dispatch = useDispatch()
+
   const modal = useSelector((state) => state.modal)
   const [switchForm, setSwitchForm] = useState(true)
 

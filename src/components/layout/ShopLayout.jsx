@@ -10,7 +10,7 @@ const ShopLayout = ({ children }) => {
         w="100%"
         minH="100vh"
         pb={100}
-        pt={90}
+        pt={100}
         flexDirection="row"
         alignItems="center"
         justify="space-evenly"

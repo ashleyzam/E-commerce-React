@@ -51,7 +51,7 @@ const Products = () => {
 
   return (
     <>
-      <Flex w="100%" gap={5} minW={250} p="70px 20px 0px 20px" bg="#ccd8d4">
+      <Flex w="100%" gap={5} minW={300} p="80px 20px 0px 20px" bg="#ccd8d4">
         <FilterProducts setTitleValues={setTitleValues} />
         <FilterCategories setCategories={setCategories} />
         <FilterPrices setPrice={setPrice} />
