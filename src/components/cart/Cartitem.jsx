@@ -53,7 +53,7 @@ export const Cartitem = () => {
     if (!user) {
       dispatch(openModal())
       toast({
-        title: "please, login or sign in to continue",
+        title: "please, log in or sign in to continue",
         status: "warning",
         duration: 2000,
         isClosable: true,
@@ -84,6 +84,7 @@ export const Cartitem = () => {
       duration: 2000,
       isClosable: true,
     })
+    dispatch(clearCart())
   }
 
   return (

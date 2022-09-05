@@ -40,12 +40,12 @@ export const Header = () => {
       >
         <Box>
           <Image
-            ml="13px"
+            ml="20px"
             w="110px"
             h="80px"
             src={logo}
             alt="logogif"
-            border="2px solid #4cedff"
+            border="3px solid black"
           />
         </Box>
         <Flex align="center" justify="space-between" gap={5} padding={3}>

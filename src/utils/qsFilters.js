@@ -1,5 +1,5 @@
-import qs from "qs"
 import { useState } from "react"
+import qs from "qs"
 
 export const qsFilters = () => {
   const [price, setPrice] = useState("")

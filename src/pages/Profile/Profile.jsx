@@ -17,16 +17,10 @@ const Profile = () => {
         }
       )
       const data = await res.json()
-      console.log(data)
       setData(data)
     }
     getUserData()
   }, [user.id])
-
-  // data &&
-  //   data.orders.forEach((item) =>
-  //     item.Item.forEach((prod) => console.log(prod))
-  //   )
 
   return (
     <Box minH="100vh">
@@ -37,7 +31,6 @@ const Profile = () => {
         data.orders.map((item) =>
           item.Item.map((prod) => (
             <Flex key={prod.id} flexDirection="column">
-              {console.log(prod)}
               <Text>{prod.attributes.title}</Text>
               <strong>${prod.attributes.price}</strong>
               <Image

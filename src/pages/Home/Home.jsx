@@ -3,8 +3,8 @@ import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import React from "react"
 import Slider from "react-slick"
-import { useGet } from "../Hooks/useGetProducts"
-import { useGetCarousel } from "../Hooks/useGetCarousel"
+import { useGet } from "../../Hooks/useGetProducts"
+import { useGetCarousel } from "../../Hooks/useGetCarousel"
 const Home = () => {
   const { isLoading, carousel } = useGetCarousel()
   const { data } = useGet()

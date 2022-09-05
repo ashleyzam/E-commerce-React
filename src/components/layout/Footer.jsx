@@ -12,7 +12,7 @@ export const Footer = () => {
         w="100%"
         mb={0}
         p={8}
-        bg="black"
+        bg="#268ba5"
         color="white"
       >
         Created by Ashley - Ada's React Project 2022
