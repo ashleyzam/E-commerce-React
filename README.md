@@ -1,6 +1,6 @@
 # E-commerce de productos tecnológicos
 
-_Este proyecto fue creado con React JS para funcionalidad, Chakra UI para el diseño, y para backend usamos Strapi junto con una pequeña configuración de manera local para lograr correr el servidor. En este proyecto podrás loguearte, registrarte, ver los productos disponibles, agregarlos al carrito y finalizar la compra, siempre y cuando estés logueado. También podrás incrementar o decrementar la cantidad de productos tanto en el carrito como antes de finalizar la compra. Si por algún motivo te arrepentís de algún item, simplemente podrás eliminar el o vaciar tu carrito_
+_Este proyecto fue creado con React JS para funcionalidad, Chakra UI para el diseño, y para backend usamos Strapi junto con una pequeña configuración de manera local para lograr correr el servidor. En este proyecto podrás loguearte, registrarte, ver los productos disponibles, agregarlos al carrito y finalizar la compra, siempre y cuando estés logueado. También podrás incrementar o decrementar la cantidad de productos tanto en el carrito como antes de finalizar la compra. Si por algún motivo te arrepentís de algún item, simplemente podrás eliminar o vaciar tu carrito_
 
 ## Despliegue 📦🚀
 
