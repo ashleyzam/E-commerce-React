@@ -103,7 +103,7 @@ const RegisterForm = () => {
               isLoading={isSubmitting}
               onSubmit={handleSubmit(onSubmit)}
             >
-              Log in
+              Register
             </Button>
           </ModalFooter>
         </VStack>
